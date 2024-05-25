@@ -7539,7 +7539,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Grades are a method of evaluation used to measure a student's academic learning. This allows instructors, employers, and colleges to determine how knowledgable a student is. Students worldwide share a common goal of increasing their grades to show that they have mastered the skills and knowledge from school. In recent times, high schools and colleges show signs of grade inflation worldwide. Grade inflation is a phenomonenon that is described as the awarding of higher grades for the same quality of work as time progresses. This phenomenon is critical to the world of education as it impacts students, universities, and employers. Grade inflation causes a variety of problems, for students and employers alike. Academic standards and effort drop, leading to students who are unprepared for the professional world. Some univesities that are known for grade inflation are Brown, Yale, Stanford, and Harvard. More info can be found here <a href="https://ripplematch.com/insights/the-top-20-universities-with-the-highest-average-gpas-84ef5edf/">https://ripplematch.com/insights/the-top-20-universities-with-the-highest-average-gpas-84ef5edf/</a></p>
+<p>Grades are a method of evaluation used to measure a student's academic learning. This allows instructors, employers, and colleges to determine how knowledegable a student is. Students worldwide share a common goal of increasing their grades to show that they have mastered the skills and knowledge from school. In recent times, high schools and colleges show signs of grade inflation worldwide. Grade inflation is a phenomenon that is described as the awarding of higher grades for the same quality of work as time progresses. This phenomenon is critical to the world of education as it impacts students, universities, and employers. Grade inflation causes a variety of problems, for students and employers alike. Academic standards and effort drop, leading to students who are unprepared for the professional world. Some universities that are known for grade inflation are Brown, Yale, Stanford, and Harvard. More info can be found here <a href="https://ripplematch.com/insights/the-top-20-universities-with-the-highest-average-gpas-84ef5edf/">https://ripplematch.com/insights/the-top-20-universities-with-the-highest-average-gpas-84ef5edf/</a></p>
 <p>There are multiple reasons why grade inflation may occur, ranging from institution's desire to have high graduation and retention rates, a professor's desire to have positive evaluations, along with other reasons. This is important to discuss because it may give students a false sense of ability, and reduce their motivation to learn. For employers, it may be harder to differentiate students who are qualified versus those who aren't based on inflated grades. Institutions who hold strict grading standards may suffer as they compete with institutions which show trends of inflated grades. More information on specific institutions can be found here <a href="https://en.wikipedia.org/wiki/Grade_inflation">https://en.wikipedia.org/wiki/Grade_inflation</a></p>
 <p>Today we will be focusing on grade data from the University of Maryland specifically. We will walk through the data science pipeline and reach conclusions on grade inflation for UMD CMSC courses. The data we are going to be analyzing comes from PlanetTerp, an open source project designed to help students at UMD make well informed decisions. This website pulls grade data from the University using PIA requests, which is made available for us to use here <a href="https://planetterp.com/api/">https://planetterp.com/api/</a></p>
 </div>
@@ -7624,7 +7624,7 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<h3 id="Preprocessing-the-data">Preprocessing the data<a class="anchor-link" href="#Preprocessing-the-data">¶</a></h3><p>We choose to focus on undergraduate computer science classes offered at the University of Maryland, so we filter out the courses that are not 1XX, 2XX, 3XX, and 4XX. Next we drop unecessary columns that we are not going to use.</p>
+<h3 id="Preprocessing-the-data">Preprocessing the data<a class="anchor-link" href="#Preprocessing-the-data">¶</a></h3><p>We choose to focus on undergraduate computer science classes offered at the University of Maryland, so we filter out the courses that are not 1XX, 2XX, 3XX, and 4XX. Next we drop unnecessary columns that we are not going to use.</p>
 <p>We also have NaN values within our data. We chose to deal with this by dropping the rows entirely and not counting those courses in our analysis. We also didn't account for any courses that were less than 3 credits. (Which would filter out STICs and other low credit courses)</p>
 </div>
 </div>
@@ -8352,7 +8352,7 @@ strong multicollinearity or other numerical problems.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>Distribution of the model residuals vary slightly across each level thus the model residuals are likely not independent of the level. This suggests that regression analysis of average GPA across time should be performed seperately for each level.</p>
+<p>Since the residual distance is different for each of the course levels, we have to look closer and do more regression analysis for each level.</p>
 </div>
 </div>
 </div>
@@ -8423,6 +8423,7 @@ strong multicollinearity or other numerical problems.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>The p-value of 5.68-31 is less than alpha of 0.05. There is statistically significant evidence to reject the null hypothesis. The coefficient for our 1XX level courses is 0.0378, and when any of the other level courses are offset using this value, all their coefficients end up being positive. This means there is a positive correlation between average GPA and time, meaning that there is a 'grade inflation' in the UMD CMSC courses.</p>
 <p>We can also do regression analysis for every computer science course in our data.</p>
 </div>
 </div>
@@ -8558,7 +8559,18 @@ strong multicollinearity problems or that the design matrix is singular.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>We saw from our second scatterplot above that some courses have a decreasing trend in the average GPA. Lets filter out the courses with negative slopes in the OLS regresion result.</p>
+<p>The p-value of 2.97-77 is less than alpha of 0.05. There is statistically significant evidence to reject the null hypothesis. Our p value from every course seperately is better than all courses or when courses were divided by level. Looking at R-squared, we can say that 55.7% of the average gpa can be explained by the prediciton. The coefficient for first course (CMSC106) is 0.0375, and when any of the other courses are offset using this value, all their coefficients end up being positive. This means there is a positive correlation between average GPA and time, meaning that there is a 'grade inflation' in the UMD CMSC courses.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p>We saw from our second scatterplot above that some courses have a decreasing trend in the average GPA. Lets filter out the courses with negative slopes in the OLS regression result.</p>
 </div>
 </div>
 </div>
@@ -8607,7 +8619,7 @@ strong multicollinearity problems or that the design matrix is singular.
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
-<p>As we can see from our list of courses with a decreasing trend in average gpa, they are all 3XX or 4XX level courses. This is an interesting result as the average gpa for all 3XX and 4XX level courses seemed to be higher than the lower level courses. The only courses with a negative slope, or grade "deflation" are all upper level courses. This may be due to changes in curriculum, or unchanged curriculum with students who are less knowledgable. (an effect of grade inflation) There is a very small number of courses that show signs of grade deflation, so in general, there should not be a problem with inconsistent grading practices.</p>
+<p>As we can see from our list of courses with a decreasing trend in average gpa, they are all 3XX or 4XX level courses. This is an interesting result as the average gpa for all 3XX and 4XX level courses seemed to be higher than the lower level courses. The only courses with a negative slope, or grade "deflation" are all upper level courses. This may be due to changes in curriculum, or unchanged curriculum with students who are less knowledeagable. (an effect of grade inflation) There is a very small number of courses that show signs of grade deflation, so in general, there should not be a problem with inconsistent grading practices.</p>
 </div>
 </div>
 </div>
@@ -8620,7 +8632,7 @@ strong multicollinearity problems or that the design matrix is singular.
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h3><center> Insight and Conclusion</center></h3>
 <p>After looking at all our data it is tempting to assume that grade inflation within the computer science department at the University of Maryland. In many articles that measure grade inflation, they typically use average gpa as measure of whether or not a school has grade inflation or not. However, solely looking at average gpa data alone will not give us the results we are looking for. It is important to consider whether or not the effort from students over each semester has been consistent. By the definition of grade inflation, effort must be consistent throughout the years if grades are increasing. In our study of UMD CS, it is important to factor in the effort of CS students here.</p>
-<p>From our data alone, we may conclude that computer science at the University of Maryland is grade inflated due to the positive relationship between average gpa and time. However, it is important to realize that effort among computer science students at UMD was not constant over theses years. This could be due to the university's rising status as a top computer science institution. It is fair to infer that as a university gets recognized for a specific field, people in that field will care more about the university. This logic can be applied with UMD CS, as its reputation within computer science draws in more students. This leads to an increase in competition, which pushes students to put more effort in. By this alone, we cannot be sure that UMD CS has grade inflation as student effort may have risen as well. We can see UMD's rise as a computer science school using this website <a href="https://csrankings.org/">https://csrankings.org/</a></p>
+<p>From our data alone, we may conclude that computer science at the University of Maryland is grade inflated due to the positive relationship between average gpa and time. However, it is important to realize that effort among computer science students at UMD was not constant over this time frame. This could be due to the university's rising status as a top computer science institution. It is fair to infer that as a university gets recognized for a specific field, people in that field will care more about the university. This logic can be applied with UMD CS, as its reputation within computer science draws in more students. This leads to an increase in competition, which pushes students to put more effort in. By this alone, we cannot be sure that UMD CS has grade inflation as student effort may have risen as well. We can see UMD's rise as a computer science school using this website <a href="https://csrankings.org/">https://csrankings.org/</a></p>
 </div>
 </div>
 </div>
@@ -8647,7 +8659,7 @@ strong multicollinearity problems or that the design matrix is singular.
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <p>We soured our data using PlanetTerp's API so you can check out their website here
 <a href="https://planetterp.com/">https://planetterp.com/</a></p>
-<p>They also have a tool to view grade inflation by course or department which can be found here (Keep in mind that this is just a tool to view average gpa and doesn't measure effort)</p>
+<p>They also have a tool to view grade inflation by course or department which can be found here (Keep in mind that this is just a tool to view average gpa and doesn't measure effort) <a href="https://planetterp.com/tools/gradeinflation">https://planetterp.com/tools/gradeinflation</a></p>
 </div>
 </div>
 </div>
